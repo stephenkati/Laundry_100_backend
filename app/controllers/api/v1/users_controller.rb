@@ -5,9 +5,9 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       token = encoded_token({ user_id: @user.id })
 
-      render json: { user: @user, token: token }, status: :ok
+      render json: { user: @user, token: }, status: :ok
     else
-      render json: {error: 'Failed to create user!'}, status: :unprocessable_entity
+      render json: { error: 'Failed to create user!' }, status: :unprocessable_entity
     end
   end
 
