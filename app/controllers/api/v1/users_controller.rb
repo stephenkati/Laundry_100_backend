@@ -11,7 +11,23 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def login
+    @user = User.find_by(email: login_params[:email])
+
+    if @user && @user.authenticate(login_params[:password])
+      token = encoded_token({ user_id: @user.id })
+
+      render json: { user: @user, token: }, status: :ok
+    else
+      render json: { error: 'Failed to Log In user!' }, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def login_params
+    params.require(:user).permit(:email, :password)
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password)
