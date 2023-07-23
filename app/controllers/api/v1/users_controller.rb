@@ -26,10 +26,10 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def login_params
-    params.require(:user).permit(:email, :password)
+    params.require(:loginDetails).permit(:email, :password)
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:registrationDetails).permit(:name, :email, :password)
   end
 end
